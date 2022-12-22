@@ -1,4 +1,4 @@
-
+  <!--                                                Javascript Proje'm 326. Satırdan başlamaktadır.                                                     --> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
     <!-- Right Panel -->
