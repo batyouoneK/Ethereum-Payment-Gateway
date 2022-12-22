@@ -315,7 +315,15 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-      
+
+
+
+
+
+
+
+                   
+                  <!--                                                      Javascript Proje Başlangıcı                                                                 --> 
 <div class="row">
 
     <div class="col-xs-12 col-md-12 text-center">
@@ -347,40 +355,40 @@
 <script type="text/javascript">
 
 
-window.addEventListener('load', async () => {
+window.addEventListener('load', async () => { 
   if (window.ethereum) {
-    window.web3 = new Web3(ethereum);
+    window.web3 = new Web3(ethereum); // Ethereum kütüphanesi kullanılarak web3 üzerinde bir etheruem pencere isteği oluşturdum .
     try {
-      await ethereum.enable();
-      initPayButton()
+      await ethereum.enable();  // Kullanıcı - Metamask vb gibi hangi soğuk cüzdanı kullanıyorsa - o cüzdan uygulamasına bir cüzdanına giriş yap paneli açma talebinde bulunuldu .
+      initPayButton() 
     } catch (err) {
-      $('#status').html('User denied account access', err)
+      $('#status').html('Cüzdana giriş kullanici tarafindan sağlanamadi', err) // Kullanıcı cüzdan girişini yapmadıysa hata aldı .
     }
   } else if (window.web3) {
-    window.web3 = new Web3(web3.currentProvider)
+    window.web3 = new Web3(web3.currentProvider) // Eğer Web3(ethereum) çağrısı kullanılarak açılamadıysa cüzdan PopUp'ı başka bir yöntem deniyoruz . ( Totalde 40 dan farklı soğuk cüzdan uygulaması vardır , aralarından birkaç tanesi düz ethereum çağrısına tepki vermezler ).
     initPayButton()
-  } else {
-    $('#status').html('No Metamask (or other Web3 Provider) installed')
+  } else { 
+    $('#status').html('Metamask ya da başka soğuk cüzdan bulunamadi , lütfen yükleyip tekrar deneyiniz .') // Hiçbir çağrı yöntemine cevap alınamadıysa , kullanıcıda herhangi bir soğuk cüzdan kurulu değildir .
   }
 })
 
 const initPayButton = () => {
   $('.pay-button').click(() => {
-    // paymentAddress is where funds will be send to
+    // paymentAddress değişkeni kullanıcıların satın alım sonucu varlıklarının gönderileceği yönetici cüzdan adresinidir .
     const paymentAddress = '0xF01b04e803D305aed27124f41eA94cC17b69362D'
-    const amountEth = <?php echo $deger ?>
+    const amountEth = <?php echo $deger ?> // Soğuk cüzdana Web3 üzerinden çağrı yapılması üzerine belirlenen ( kullanıcının yatırmak istediği ethereum miktarını ) gösteren değişkendir . Bu miktar yönetici cüzdanına kullanıcı onayı sonrası aktarılır .
 
-    web3.eth.sendTransaction({
+    web3.eth.sendTransaction({ // Ethereum(web3) kütüphanesi ile eth.sendTransaction yani bir çağrı gönder , to: bu cüzdan adresine ++
       to: paymentAddress,
-      value: web3.toWei(amountEth, 'ether')
+      value: web3.toWei(amountEth, 'ether') // Value değeri toWei yani (gwei) değişkenini alır , çünkü bir çağrı gönderebilmek için göndermek istediğiniz ethereum miktarını "gwei" cinsinden belirtmeniz gereklidir . Bu da her bir gwei 0,000000001 ETH yani 1 üzeri -9 ETH'ye eşittir.
       
     }, (err, transactionId) => {
       if  (err) {
-        console.log('Payment failed', err)
-        $('#status').html('Payment failed')
-      } else {
-        console.log('Payment successful', transactionId)
-        document.getElementById("transid").innerHTML = transactionId;
+        console.log('Ödeme başarisiz.', err) // Kullanıcıya yukarı bölümde gönderilen çağrı eğer kullanıcı tarafından onaylanmazsa kod bloğu bu bölümü gösterir .
+        $('#status').html('Ödeme başarisiz.')
+      } else { // Eğer ödeme başarısız değil ve kullanıcı tarafından ağa paymentAddress değişkeninde belirlenen cüzdan adresine amountEth değerindeki kadar ETH transferi yapılmasına onay verildiyse :
+        console.log('Ödeme başarili', transactionId)
+        document.getElementById("transid").innerHTML = "Aşağida bulunan işlem hash'ini bu link'in devamini kullanarak sorgulatabilirsiniz. https://testnet.bscscan.com/tx/" + "<br> " + transactionId; // Blockchain üzerinde gerçekleşen her işlemin bir hash id'si vardır , buna da transactionId adı verilir . Bu ID'yi çıktı olarak gösteriyoruz.
         $('#status').html('<?php $b = 1;?>')
         $('#status').html('<?php $a = "Payment Successfull !"; echo $a;?> <form action="get.php" method="post"> <input type="hidden" name="deneme" value="<?php echo $deger?>"><button type="submit" class="btn btn-info btn-block btn2">Claim Your Balance</button><br></form>')
       }
@@ -390,6 +398,18 @@ const initPayButton = () => {
 </script>
 
 <?php } ?>
+<!--                                                      Javascript Proje Bitişi                                                                 --> 
+
+
+
+
+
+
+
+
+
+
+
 
         <div class="card">
             <div class="card-header">
